@@ -1,5 +1,11 @@
 package com.talisman.config;
 
+import com.talisman.dao.AccountDAO;
+import com.talisman.dao.OrderDAO;
+import com.talisman.dao.ProductDAO;
+import com.talisman.daoImpl.AccountDAOImpl;
+import com.talisman.daoImpl.OrderDAOImpl;
+import com.talisman.daoImpl.ProductDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -28,6 +34,24 @@ public class ApplicationConfig {
     @Autowired
     Environment environment;
 
+    @Bean(name = "accountDAO")
+    @Autowired
+    public AccountDAO getAccountDAO(final SessionFactory sessionFactory) {
+        return new AccountDAOImpl(sessionFactory);
+    }
+
+    @Bean(name = "orderDAO")
+    @Autowired
+    public OrderDAO getOrderDAO(final SessionFactory sessionFactory, final ProductDAO productDAO) {
+        return new OrderDAOImpl(sessionFactory, productDAO);
+    }
+
+    @Bean(name = "productDAO")
+    @Autowired
+    public ProductDAO getProductDAO(final SessionFactory sessionFactory) {
+        return new ProductDAOImpl(sessionFactory);
+    }
+
     @Bean(name = "viewResolver")
     public InternalResourceViewResolver getViewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -46,7 +70,6 @@ public class ApplicationConfig {
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-        // See: ds-hibernate-cfg.properties
         dataSource.setDriverClassName(environment.getProperty("database-driver"));
         dataSource.setUrl(environment.getProperty("url"));
         dataSource.setUsername(environment.getProperty("username"));
