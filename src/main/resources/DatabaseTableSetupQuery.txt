@@ -10,7 +10,7 @@ create table Order_Details (
         ID varchar(50) not null,
         Amount double(30,6) not null,
         Price double(30,6) not null,
-        Quanity integer not null,
+        Quantity integer not null,
         ORDER_ID varchar(50) not null,
         PRODUCT_ID varchar(20) not null,
         primary key(ID)
