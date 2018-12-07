@@ -142,7 +142,7 @@ public class OrderDAOImpl implements OrderDAO {
         CriteriaQuery<Order> criteriaQuery = builder.createQuery(Order.class);
         Root<Order> orderRoot = criteriaQuery.from(Order.class);
         Predicate[] restrictions = new Predicate[] {
-                builder.equal(orderRoot.get("id"), orderRoot)
+                builder.equal(orderRoot.get("id"), orderId)
         };
         criteriaQuery.select(orderRoot).where(restrictions);
         Query<Order> orderQuery = currentSession.createQuery(criteriaQuery);
