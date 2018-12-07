@@ -53,7 +53,7 @@ public class OrderDAOImpl implements OrderDAO {
         orderInfo.setOrderDate(new Date());
         orderInfo.setAmount(cartDetailInformation.getTotalAmount());
 
-        CustomerInfo customerInformation = new CustomerInfo();
+        CustomerInfo customerInformation = cartDetailInformation.getCustomerInformation();
         orderInfo.setCustomerName(customerInformation.getName());
         orderInfo.setCustomerEmail(customerInformation.getEmail());
         orderInfo.setCustomerAddress(customerInformation.getAddress());
@@ -84,7 +84,7 @@ public class OrderDAOImpl implements OrderDAO {
     @Override
     public Paginate<OrderInfo> getOrderInformation(final int page, final int maxResult, final int maxNavigationPage) {
 
-        String sqlQuery = "Select new " + OrderInfo.class.getName() + "(ord.Id, ord.orderDate, ord.orderNumber, ord.amount," +
+        String sqlQuery = "Select new " + OrderInfo.class.getName() + "(ord.id, ord.orderDate, ord.orderNum, ord.amount," +
                 "ord.customerName, ord.customerAddress, ord.customerPhone, ord.customerEmail)" + " from " + Order.class.getName() +
                 " ord " + "order by ord.orderNum desc";
 
@@ -109,9 +109,9 @@ public class OrderDAOImpl implements OrderDAO {
     public List<OrderDetailInfo> getOrderDetailInformation(String orderId) {
 
         String sqlQuery = "select new " + OrderDetailInfo.class.getName() +
-                "(d.id, d.product.code, d.product.name , d.quanity,d.price,d.amount)" +
+                "(d.id, d.product.code, d.product.name , d.quantity,d.price,d.amount)" +
                 " from " + OrderDetails.class.getName() + " d " +
-                "where d.orderId = :orderId";
+                "where d.order.id = :orderId";
         Session currentSession = this.sessionFactory.getCurrentSession();
 
         Query query = currentSession.createQuery(sqlQuery);
@@ -126,7 +126,7 @@ public class OrderDAOImpl implements OrderDAO {
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(sqlQuery);
         List<Integer> queryResultList = query.getResultList();
-        if(queryResultList.isEmpty() || queryResultList == null) {
+        if(queryResultList.isEmpty() || queryResultList == null || queryResultList.get(0) == null) {
             return 0;
         } else {
             Integer maxOrderNum = (Integer) queryResultList.get(0);
