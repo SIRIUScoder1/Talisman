@@ -81,26 +81,26 @@ public class Paginate<E> {
     }
 
     public int getTotalPages() {
-        return totalPages;
+        return this.totalPages;
     }
 
     public int getTotalRecords() {
-        return totalRecords;
+        return this.totalRecords;
     }
 
     public int getCurrentPage() {
-        return currentPage;
+        return this.currentPage;
     }
 
-    public List<E> getList() {
-        return records;
+    public List<E> getRecords() {
+        return this.records;
     }
 
     public int getMaxResult() {
-        return maxRecords;
+        return this.maxRecords;
     }
 
     public List<Integer> getNavigationPages() {
-        return navigationPages;
+        return this.navigationPages;
     }
 }

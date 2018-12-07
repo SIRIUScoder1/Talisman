@@ -7,8 +7,11 @@ public class CartDetailInfo {
 
     private int orderNumber;
     private CustomerInfo customerInformation;
-    private CartProductInfo cartProductInformation;
     private final List<CartProductInfo> cartProductInfoList = new ArrayList<CartProductInfo>();
+
+    public CartDetailInfo() {
+
+    }
 
     public int getOrderNumber() {
 
@@ -35,12 +38,11 @@ public class CartDetailInfo {
             cartProductInfo = new CartProductInfo();
             cartProductInfo.setProductInformation(productInformation);
             cartProductInfo.setProductQuantity(0);
+            this.cartProductInfoList.add(cartProductInfo);
         }
 
         newQuantity = cartProductInfo.getProductQuantity() + productQuantity;
-
         if(newQuantity > 0) {
-
             cartProductInfo.setProductQuantity(newQuantity);
         } else {
 
@@ -58,6 +60,16 @@ public class CartDetailInfo {
                 cartProductInformation.setProductQuantity(productQuantity);
             } else {
                 this.cartProductInfoList.remove(cartProductInformation);
+            }
+        }
+    }
+
+    public void updateProductQuantity(final CartDetailInfo cartDetailInformation) {
+
+        if(cartDetailInformation != null) {
+            List<CartProductInfo> cartProductInfoList = cartDetailInformation.getCartProductInfoList();
+            for(CartProductInfo cartProductInformation : cartProductInfoList) {
+                this.updateProductQuantity(cartProductInformation.getProductInformation().getCode(), cartProductInformation.getProductQuantity());
             }
         }
     }
@@ -130,5 +142,4 @@ public class CartDetailInfo {
 
         this.customerInformation = customerInformation;
     }
-
 }

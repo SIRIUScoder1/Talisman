@@ -29,19 +29,18 @@ public class ProductInfoValidator implements Validator {
     public void validate(Object object, Errors errors) {
 
         ProductInfo productInformation = (ProductInfo) object;
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "empty.productForm.code");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "empty.productForm.name");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "empty.productForm.price");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "empty.productInformation.code");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "empty.productInformation.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "price", "empty.productInformation.price");
 
         String productCode = productInformation.getCode();
         if(productCode != null && productCode.length() > 0) {
             if(productCode.matches("\\s+")) {
-                errors.rejectValue("code", "pattern.productForm.code");
+                errors.rejectValue("code", "pattern.productInformation.code");
             } else if(productInformation.isNewProduct()) {
-                Product product = productDAO.findProduct(productCode);
+                Product product = this.productDAO.findProduct(productCode);
                 if(product != null) {
-                    errors.rejectValue("code","duplicate.productForm.code");
+                    errors.rejectValue("code","duplicate.productInformation.code");
                 }
             }
         }

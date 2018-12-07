@@ -23,14 +23,13 @@ public class CustomerInfoValidator implements Validator {
     public void validate(Object object, Errors errors) {
 
         CustomerInfo customerInformation = (CustomerInfo) object;
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "empty.customerForm.name");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email", "empty.customerForm.email");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"address", "empty.customerForm.address");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"phone", "empty.customerForm.phone");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "empty.customerInformation.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"email", "empty.customerInformation.email");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"address", "empty.customerInformation.address");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"phoneNumber", "empty.customerInformation.phoneNumber");
 
         if(!emailValidator.isValid(customerInformation.getEmail())) {
-            errors.rejectValue("email", "pattern.customerForm.email");
+            errors.rejectValue("email", "pattern.customerInformation.email");
         }
     }
 }

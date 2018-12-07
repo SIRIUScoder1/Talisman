@@ -9,6 +9,10 @@ public class OrderDetailInfo {
     private double price;
     private double amount;
 
+    public OrderDetailInfo() {
+
+    }
+
     public OrderDetailInfo(final String id, final String productCode, final String productName,
                            final int quantity, final double price, final double amount) {
 

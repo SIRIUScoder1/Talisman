@@ -12,6 +12,10 @@ public class ProductInfo {
 
     private boolean newProduct = false;
 
+    public ProductInfo() {
+
+    }
+
     public ProductInfo(final Product product) {
 
         this.code = product.getCode();

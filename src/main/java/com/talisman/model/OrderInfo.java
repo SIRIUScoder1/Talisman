@@ -17,6 +17,9 @@ public class OrderInfo {
 
     private List<OrderDetailInfo> orderList;
 
+    public OrderInfo() {
+
+    }
 
     public OrderInfo(final String id, final Date orderDate, final int orderNumber,
                      final double amount, final String customerName, final String customerAddress,
